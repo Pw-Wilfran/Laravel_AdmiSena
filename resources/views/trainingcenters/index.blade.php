@@ -6,7 +6,11 @@
     <title>Training Center index</title>
 </head>
 <body>
-    <h1>Lista de Training Centers</h1>
-    <a href="{{ route('trainingcenter.create') }}">Crear nuevo</a>
+    @extends('layouts.app')
+
+    @section('content')
+        <h1>Lista de Training Centers</h1>
+        <a href="{{ route('trainingcenter.create') }}">Crear nuevo</a>
+    @endsection
 </body>
 </html>

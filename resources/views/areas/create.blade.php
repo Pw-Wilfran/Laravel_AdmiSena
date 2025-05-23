@@ -8,15 +8,17 @@
 </head>
 
 <body>
+    @extends('layouts.app')
 
-    <h1>Crear Área</h1>
-    <form action="{{ route('area.store') }}" method="POST">
-        @csrf
-        <label>Name:</label>
-        <input type="text" name="name"><br>
-        <button type="submit">Guardar</button>
-    </form>
-
+    @section('content')
+        <h1>Crear Área</h1>
+        <form action="{{ route('area.store') }}" method="POST">
+            @csrf
+            <label>Name:</label>
+            <input type="text" name="name"><br>
+            <button type="submit">Guardar</button>
+        </form>
+    @endsection
 </body>
 
 </html>

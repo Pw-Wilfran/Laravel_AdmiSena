@@ -6,7 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Lista de Computadores</h1>
-    <a href="{{ route('computer.create') }}">Crear nuevo</a>
+    @extends('layouts.app')
+
+    @section('content')
+        <h1>Lista de Computadores</h1>
+        <a href="{{ route('computer.create') }}">Crear nuevo</a>
+    @endsection
 </body>
 </html>

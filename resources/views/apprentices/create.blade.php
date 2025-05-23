@@ -11,17 +11,21 @@
     @extends('layouts.app')
 
     @section('content')
-        <h1>Crear Computador</h1>
-        <form action="{{ route('computer.store') }}" method="POST">
+        <h1>Crear Área</h1>
+        <form action="{{ route('apprentice.store') }}" method="POST">
             @csrf
-            <label>Number:</label>
-            <input type="text" name="number"><br>
+            <label>Name:</label>
+            <input type="text" name="name"><br>
 
-            <label>Brand:</label>
-            <input type="text" name="brand"><br>
+            <label>Email:</label>
+            <input type="email" name="email"><br>
+
+            <label>Cell Number:</label>
+            <input type="number" name="cell number"><br>
 
             <button type="submit">Guardar</button>
         </form>
     @endsection
 </body>
+
 </html>

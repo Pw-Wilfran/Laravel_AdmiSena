@@ -9,8 +9,8 @@
     @extends('layouts.app')
 
     @section('content')
-        <h1>Lista de Áreas</h1>
-        <a href="{{ route('area.create') }}">Crear nueva</a>
+        <h1>Lista de Profesores</h1>
+        <a href="{{ route('teacher.create') }}">Agregar</a>
     @endsection
 </body>
 </html>

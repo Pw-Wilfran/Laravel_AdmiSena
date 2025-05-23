@@ -11,5 +11,8 @@
     <a href="{{ route('trainingcenter.index') }}">training center</a><br><br>
     <a href="{{ route('computer.index') }}">Computadores</a><br><br>
     <a href="{{ route('area.index') }}">Areas</a><br><br>
+    <a href="{{ route('course.index') }}">Cursos</a><br><br>
+    <a href="{{ route('teacher.index') }}">Profesores</a><br><br>
+    <a href="{{ route('apprentice.index') }}">Aprendizes</a><br><br>
 </body>
 </html>

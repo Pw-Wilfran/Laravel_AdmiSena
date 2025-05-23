@@ -12,7 +12,8 @@ class ApprenticeController extends Controller
      */
     public function index()
     {
-        //
+        $apprentice = Apprentice::all();
+        return view('apprentices.index', compact('apprentice'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ApprenticeController extends Controller
      */
     public function create()
     {
-        //
+        return view('apprentices.create');
     }
 
     /**
@@ -28,7 +29,12 @@ class ApprenticeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $apprentice = new Apprentice();
+        $apprentice->name = $request->name;
+        $apprentice->email = $request->email;
+        $apprentice->call_number = $request->call_number;
+
+        return $apprentice;
     }
 
     /**

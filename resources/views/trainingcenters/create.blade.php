@@ -8,19 +8,21 @@
 </head>
 
 <body>
+    @extends('layouts.app')
 
-    <h1>Crear Training Center</h1>
-    <form action="{{ route('trainingcenter.store') }}" method="POST">
-        @csrf
-        <label>Name:</label>
-        <input type="text" name="name"><br>
+    @section('content')
+        <h1>Crear Training Center</h1>
+        <form action="{{ route('trainingcenter.store') }}" method="POST">
+            @csrf
+            <label>Name:</label>
+            <input type="text" name="name"><br>
 
-        <label>Location:</label>
-        <input type="text" name="location"><br>
+            <label>Location:</label>
+            <input type="text" name="location"><br>
 
-        <button type="submit">Guardar</button>
-    </form>
-
+            <button type="submit">Guardar</button>
+        </form>
+    @endsection
 </body>
 
 </html>
