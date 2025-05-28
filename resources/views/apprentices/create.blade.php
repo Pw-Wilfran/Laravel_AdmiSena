@@ -1,31 +1,34 @@
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('content')
+<h2>Crear Aprendiz</h2>
 
-<body>
-    @extends('layouts.app')
+<form method="POST" action="{{ route('apprentice.store') }}">
+    @csrf
 
-    @section('content')
-        <h1>Crear Área</h1>
-        <form action="{{ route('apprentice.store') }}" method="POST">
-            @csrf
-            <label>Name:</label>
-            <input type="text" name="name"><br>
+    <label>Nombre:</label>
+    <input type="text" name="name"><br>
 
-            <label>Email:</label>
-            <input type="email" name="email"><br>
+    <label>Email:</label>
+    <input type="email" name="email"><br>
 
-            <label>Cell Number:</label>
-            <input type="number" name="cell number"><br>
+    <label>Número de celular:</label>
+    <input type="text" name="cell_number"><br>
 
-            <button type="submit">Guardar</button>
-        </form>
-    @endsection
-</body>
+    <label>Curso:</label>
+    <select name="course_id">
+        @foreach ($courses as $course)
+            <option value="{{ $course->id }}">{{ $course->course_number }}</option>
+        @endforeach
+    </select><br>
 
-</html>
+    <label>Computador:</label>
+    <select name="computer_id">
+        @foreach ($computers as $computer)
+            <option value="{{ $computer->id }}">{{ $computer->number }} - {{ $computer->brand }}</option>
+        @endforeach
+    </select><br>
+
+    <button type="submit">Guardar</button>
+</form>
+@endsection

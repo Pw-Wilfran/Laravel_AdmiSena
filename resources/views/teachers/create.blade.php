@@ -1,28 +1,30 @@
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('content')
+<h2>Crear Docente</h2>
 
-<body>
-    @extends('layouts.app')
+<form method="POST" action="{{ route('teacher.store') }}">
+    @csrf
+    <label>Nombre:</label>
+    <input type="text" name="name"><br>
 
-    @section('content')
-        <h1>Agregar Profesor</h1>
-        <form action="{{ route('teacher.store') }}" method="POST">
-            @csrf
-            <label>Name:</label>
-            <input type="text" name="name"><br>
+    <label>Email:</label>
+    <input type="email" name="email"><br>
 
-            <label>Email:</label>
-            <input type="email" name="email"><br>
-            
-            <button type="submit">Guardar</button>
-        </form>
-    @endsection
-</body>
+    <label>Área:</label>
+    <select name="area_id">
+        @foreach ($areas as $area)
+            <option value="{{ $area->id }}">{{ $area->name }}</option>
+        @endforeach
+    </select><br>
 
-</html>
+    <label>Centro de Formación:</label>
+    <select name="training_center_id">
+        @foreach ($trainingCenters as $center)
+            <option value="{{ $center->id }}">{{ $center->name }}</option>
+        @endforeach
+    </select><br>
+
+    <button type="submit">Guardar</button>
+</form>
+@endsection

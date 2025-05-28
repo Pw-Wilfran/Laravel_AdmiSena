@@ -1,28 +1,33 @@
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('content')
+    <h1>Crear Curso</h1>
 
-<body>
-    @extends('layouts.app')
+    <form action="{{ route('course.store') }}" method="POST">
+        @csrf
 
-    @section('content')
-        <h1>Crear Curso</h1>
-        <form action="{{ route('course.store') }}" method="POST">
-            @csrf
-            <label>Course Number:</label>
-            <input type="text" name="course_number"><br>
+        <label>Course Number:</label>
+        <input type="number" name="course_number" value="{{ old('course_number') }}"><br>
 
-            <label>day:</label>
-            <input type="text" name="day"><br>
-            
-            <button type="submit">Guardar</button>
-        </form>
-    @endsection
-</body>
+        <label>Day:</label>
+        <input type="date" name="day" value="{{ old('day') }}"><br>
 
-</html>
+        <label>Área:</label>
+        <select name="area_id">
+            <option value="">Seleccione un área</option>
+            @foreach ($areas as $area)
+                <option value="{{ $area->id }}">{{ $area->name }}</option>
+            @endforeach
+        </select><br>
+
+        <label>Centro de Formación:</label>
+        <select name="training_center_id">
+            <option value="">Seleccione un centro</option>
+            @foreach ($trainingCenters as $center)
+                <option value="{{ $center->id }}">{{ $center->name }}</option>
+            @endforeach
+        </select><br><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+@endsection

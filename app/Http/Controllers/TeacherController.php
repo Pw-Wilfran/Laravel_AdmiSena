@@ -3,68 +3,70 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Models\Area;
+use App\Models\TrainingCenter;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $teacher = Teacher::all();
-        return view('teachers.index', compact('teacher'));
+        $teachers = Teacher::all();
+        return view('teachers.index', compact('teachers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('teachers.create');
+        $areas = Area::all();
+        $trainingCenters = TrainingCenter::all();
+        return view('teachers.create', compact('areas', 'trainingCenters'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $teacher = new Teacher();
         $teacher->name = $request->name;
         $teacher->email = $request->email;
+        $teacher->area_id = $request->area_id;
+        $teacher->training_center_id = $request->training_center_id;
+        $teacher->save();
 
-        return $teacher;
+        return redirect()->route('teacher.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Teacher $teacher)
+    public function show($id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $area = Area::find($teacher->area_id);
+        $trainingCenter = TrainingCenter::find($teacher->training_center_id);
+        return view('teachers.show', compact('teacher', 'area', 'trainingCenter'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Teacher $teacher)
+    public function edit($id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $areas = Area::all();
+        $trainingCenters = TrainingCenter::all();
+        return view('teachers.edit', compact('teacher', 'areas', 'trainingCenters'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, $id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $teacher->name = $request->name;
+        $teacher->email = $request->email;
+        $teacher->area_id = $request->area_id;
+        $teacher->training_center_id = $request->training_center_id;
+        $teacher->save();
+
+        return redirect()->route('teacher.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Teacher $teacher)
+    public function destroy($id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $teacher->delete();
+
+        return redirect()->route('teacher.index');
     }
 }

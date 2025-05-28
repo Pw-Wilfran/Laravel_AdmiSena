@@ -8,9 +8,49 @@
 <body>
     @extends('layouts.app')
 
-    @section('content')
-        <h1>Lista de Aprendizes</h1>
-        <a href="{{ route('apprentice.create') }}">Crear nueva</a>
-    @endsection
+@section('content')
+    <div class="container mt-4">
+        <h1 class="mb-4">Lista de Aprendizes</h1>
+        
+        <a href="{{ route('apprentice.create') }}" class="btn btn-warning btn-sm mb-4">crear</a>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Numero de Tel.</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($apprentices as $apprentice)
+                    <tr>
+                        <td>{{ $apprentice['id'] }}</td>
+                        <td>{{ $apprentice['name'] }}</td>
+                        <td>{{ $apprentice['email'] }}</td>
+                        <td>{{ $apprentice['cell_number'] }}</td>
+                        
+                        
+                        <td>
+                            <a href="{{ route('apprentice.show', $apprentice['id']) }}" class="btn btn-info btn-sm">Ver más</a>
+                        </td>
+                        <td><a href="{{ route('apprentice.edit', $apprentice->id) }}"class="btn btn-success btn-sm">Editar</a></td>
+                        <td>
+                        <form action="{{ route('apprentice.destroy', $apprentice->id) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger d-flex align-items-center gap-2">
+                                <i class="bi bi-trash-fill"></i> Eliminar
+                            </button>
+                        </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endsection
 </body>
 </html>

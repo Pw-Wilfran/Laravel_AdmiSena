@@ -3,69 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apprentice;
+use App\Models\Course;
+use App\Models\Computer;
 use Illuminate\Http\Request;
 
 class ApprenticeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $apprentice = Apprentice::all();
-        return view('apprentices.index', compact('apprentice'));
+        $apprentices = Apprentice::with(['course', 'computer'])->get();
+        return view('apprentices.index', compact('apprentices'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('apprentices.create');
+        $courses = Course::all();
+        $computers = Computer::all();
+        return view('apprentices.create', compact('courses', 'computers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $apprentice = new Apprentice();
-        $apprentice->name = $request->name;
-        $apprentice->email = $request->email;
-        $apprentice->call_number = $request->call_number;
-
-        return $apprentice;
+        Apprentice::create($request->all());
+        return redirect()->route('apprentice.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Apprentice $apprentice)
     {
-        //
+        return view('apprentices.show', compact('apprentice'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Apprentice $apprentice)
     {
-        //
+        $courses = Course::all();
+        $computers = Computer::all();
+        return view('apprentices.edit', compact('apprentice', 'courses', 'computers'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Apprentice $apprentice)
     {
-        //
+        $apprentice->update($request->all());
+        return redirect()->route('apprentice.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Apprentice $apprentice)
     {
-        //
+        $apprentice->delete();
+        return redirect()->route('apprentice.index');
     }
 }

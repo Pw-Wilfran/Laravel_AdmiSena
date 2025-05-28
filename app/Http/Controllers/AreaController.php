@@ -24,6 +24,36 @@ class AreaController extends Controller
         $area->name = $request->name;
         $area->save();
 
-        return $area;
+        return redirect()->route('area.index');
+    }
+
+    
+    public function show($id)
+    {
+        $area = Area::find($id);
+    
+        return view('areas.show', compact('area'));
+    }
+
+    public function edit(Area $area){
+
+        return view('areas.edit',compact('area'));
+
+    }
+
+    public function update(Request $request, Area $area){
+
+        $area->name = $request->name;
+        $area->save();
+    
+        return redirect()->route('area.index');
+
+    }
+
+    public function destroy (Area $area){
+        
+        $area->delete();
+
+        return redirect()->route('area.index');
     }
 }

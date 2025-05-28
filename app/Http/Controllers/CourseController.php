@@ -3,68 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Area;
+use App\Models\TrainingCenter;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $course = Course::all();
-        return view('courses.index', compact('course'));
+    public function index() {
+        $courses = Course::with(['area', 'trainingCenter'])->get();
+        return view('courses.index', compact('courses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('courses.create');
+    public function create() {
+        $areas = Area::all();
+        $trainingCenters = TrainingCenter::all();
+        return view('courses.create', compact('areas', 'trainingCenters'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $course = new Course();
-        $course->course_number = $request->course_number;
-        $course->day = $request->day;
+    public function store(Request $request) {
+        $request->validate([
+            'course_number' => 'required',
+            'day' => 'required',
+            'area_id' => 'required|exists:areas,id',
+            'training_center_id' => 'required|exists:training_centers,id'
+        ]);
 
-        return $course;
+        Course::create($request->all());
+        return redirect()->route('course.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Course $course)
-    {
-        //
+    public function show(Course $course) {
+        
+        return view('courses.show', compact('course'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Course $course)
-    {
-        //
+    public function edit(Course $course) {
+        $areas = Area::all();
+        $trainingCenters = TrainingCenter::all();
+        return view('courses.edit', compact('course', 'areas', 'trainingCenters'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Course $course)
-    {
-        //
+    public function update(Request $request, Course $course) {
+        $request->validate([
+            'course_number' => 'required',
+            'day' => 'required',
+            'area_id' => 'required|exists:areas,id',
+            'training_center_id' => 'required|exists:training_centers,id'
+        ]);
+
+        $course->update($request->all());
+        return redirect()->route('course.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Course $course)
-    {
-        //
+    public function destroy(Course $course) {
+        $course->delete();
+        return redirect()->route('course.index');
     }
 }

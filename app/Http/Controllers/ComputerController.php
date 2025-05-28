@@ -25,6 +25,32 @@ class ComputerController extends Controller
         $computer->brand = $request->brand;
         $computer->save();
 
-        return $computer;
+        return redirect()->route('computer.index')->with('success', 'Computador actualizado correctamente.');
+    }
+
+    public function show(Computer $computer)
+    {
+        return view('computers.show', compact('computer'));
+    }
+
+    public function edit(Computer $computer)
+    {
+        return view('computers.edit', compact('computer'));
+    }
+
+    public function update(Request $request, Computer $computer)
+    {
+        $computer->number = $request->number;
+        $computer->brand = $request->brand;
+        $computer->save();
+
+        return redirect()->route('computer.index')->with('success', 'Computador actualizado correctamente.');
+    }
+
+    public function destroy(Computer $computer)
+    {
+        $computer->delete();
+
+        return redirect()->route('computer.index')->with('success', 'Computador eliminado correctamente.');
     }
 }
