@@ -1,28 +1,28 @@
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>trainingcenter create</title>
-</head>
+@section('content')
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header">
+            <h3>Crear Training Center</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('trainingcenter.store') }}" method="POST">
+                @csrf
 
-<body>
-    @extends('layouts.app')
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre:</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                </div>
 
-    @section('content')
-        <h1>Crear Training Center</h1>
-        <form action="{{ route('trainingcenter.store') }}" method="POST">
-            @csrf
-            <label>Name:</label>
-            <input type="text" name="name"><br>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Ubicación:</label>
+                    <input type="text" name="location" id="location" class="form-control" required>
+                </div>
 
-            <label>Location:</label>
-            <input type="text" name="location"><br>
-
-            <button type="submit">Guardar</button>
-        </form>
-    @endsection
-</body>
-
-</html>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

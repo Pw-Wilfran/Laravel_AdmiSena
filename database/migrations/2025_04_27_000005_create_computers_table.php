@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('number')->unique();
             $table->string('brand');
+            $table->string('urlPdf')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Computer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ComputerController extends Controller
 {
@@ -23,8 +24,14 @@ class ComputerController extends Controller
         $computer = new Computer();
         $computer->number = $request->number;
         $computer->brand = $request->brand;
-        $computer->save();
+        
 
+        $file = $request->file('urlPdf');
+        $nombreArchivo = "pdf_" . time() . "." . $file->guessExtension();
+        $file->storeAs('imagenes', $nombreArchivo);
+        $computer->urlPdf = $nombreArchivo;
+
+        $computer->save();
         return redirect()->route('computer.index')->with('success', 'Computador actualizado correctamente.');
     }
 

@@ -1,24 +1,23 @@
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('content')
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Crear Área</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('area.store') }}" method="POST">
+                @csrf
 
-<body>
-    @extends('layouts.app')
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre del Área</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                </div>
 
-    @section('content')
-        <h1>Crear Área</h1>
-        <form action="{{ route('area.store') }}" method="POST">
-            @csrf
-            <label>Name:</label>
-            <input type="text" name="name"><br>
-            <button type="submit">Guardar</button>
-        </form>
-    @endsection
-</body>
-
-</html>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

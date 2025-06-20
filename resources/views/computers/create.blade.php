@@ -1,27 +1,34 @@
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('content')
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header">
+            <h3>Crear Computador</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('computer.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-<body>
-    @extends('layouts.app')
+                <div class="mb-3">
+                    <label for="number" class="form-label">Número:</label>
+                    <input type="text" name="number" id="number" class="form-control" required>
+                </div>
 
-    @section('content')
-        <h1>Crear Computador</h1>
-        <form action="{{ route('computer.store') }}" method="POST">
-            @csrf
-            <label>Number:</label>
-            <input type="text" name="number"><br>
+                <div class="mb-3">
+                    <label for="brand" class="form-label">Marca:</label>
+                    <input type="text" name="brand" id="brand" class="form-control" required>
+                </div>
 
-            <label>Brand:</label>
-            <input type="text" name="brand"><br>
+                <div class="mb-3">
+                    <label for="urlPdf" class="form-label">PDF:</label>
+                    <input type="file" name="urlPdf" id="urlPdf" class="form-control">
+                </div>
 
-            <button type="submit">Guardar</button>
-        </form>
-    @endsection
-</body>
-</html>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
